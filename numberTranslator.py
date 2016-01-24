@@ -1,13 +1,13 @@
 import sys
 import re
 from trans_date import * 
-from trans_percent import *
+from trans_money import *
 
 # user_input = raw_input("Please specify a file: ") 
 output_string = ''
 
 # with open(user_input, 'r') as f:
-with open('input.txt','r') as f:
+with open('more.txt','r') as f:
 	text = f.read()
 
 list_thousand = ['', 'one thousand', 'two thousand', 'three thousand', 'four thousand', 'five thousand', 'six-thousand', 'seven-thousand', 'eigth-thousand', 'nine-thousand']
@@ -44,21 +44,26 @@ for substring in master_list:
 
 	# if substring contains number, find all occurences of number, translate, and print
 	else:
+		# =========================
+		# ======== Percent ========
+		# =========================
+		substring = substring.replace('%', 'percent')
+
 		# ======================
 		# ======== Date ========
 		# ======================
 		new_substring_date = EvaluateDate(substring)
 		substring = substring.replace(substring, new_substring_date)
-		output_string = concatSubstring(substring, output_string)
 
-		# =========================
-		# ======== Percent ========
-		# =========================
-		new_substring_percent = EvaluateDate(substring)
+		# =======================
+		# ======== Money ========
+		# =======================
+		new_substring_money = EvaluateMoney(substring)
+		substring = substring.replace(substring, new_substring_money)
 
-		# money
 
 		# decimal
 
+		output_string = concatSubstring(substring, output_string)
 
-print output_string
+# print output_string
