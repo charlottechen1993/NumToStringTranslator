@@ -85,19 +85,7 @@ def ConvertYears(input_year):
 
 	# Year > 2000
 	if input_year[0] == '2':
-		year = int(input_year)
-		new_string += 'two thousand'
-		tens = year%2000
-		# 2010-2099
-		if tens != 0 and tens >= 10:
-			eng_tens = ConvertTens(tens) 
-			new_string += ' '
-			new_string += eng_tens
-		# 2001-2009
-		elif tens != 0 and tens < 10:
-			eng_ones = ConvertOnes(tens)
-			new_string += ' '
-			new_string += eng_ones
+		new_string += ConvertThousands(input_year)
 	# Year < 2000
 	elif input_year[0] == '1':
 		year = input_year
@@ -158,7 +146,7 @@ def EvaluateDate(substring):
 			full_year = re.search(r'(\d+)', reg_year[int(r1)])
 			new_substring = ConvertYears(full_year.group(1))
 
-			print full_year.group(1) + ' : ' + new_substring
+			# print full_year.group(1) + ' : ' + new_substring
 			substring = substring.replace(full_year.group(1), new_substring)
 
 	# =========================
@@ -170,7 +158,7 @@ def EvaluateDate(substring):
 			full_year_s = re.search(r'(\d+)', reg_year_s[int(r1_5)])
 			new_substring = ConvertYearsWithS(full_year_s.group(1))
 
-			print full_year_s.group(1) + ' : ' + new_substring
+			# print full_year_s.group(1) + ' : ' + new_substring
 			substring = substring.replace(full_year_s.group(1), new_substring)
 
 	# ===============================
@@ -185,7 +173,7 @@ def EvaluateDate(substring):
 			elif len(str(date.group(1)))==2:
 				new_substring = ConvertTenth(date.group(1))
 
-			print date.group(1) + ' : ' + new_substring
+			# print date.group(1) + ' : ' + new_substring
 			substring = substring.replace(date.group(1), new_substring)
 
 	return substring

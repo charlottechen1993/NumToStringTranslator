@@ -2,6 +2,7 @@ import sys
 import re
 from trans_date import * 
 from trans_money import *
+from trans_fraction import *
 
 # user_input = raw_input("Please specify a file: ") 
 output_string = ''
@@ -61,8 +62,12 @@ for substring in master_list:
 		new_substring_money = EvaluateMoney(substring)
 		substring = substring.replace(substring, new_substring_money)
 
+		# =======================
+		# ====== Fraction =======
+		# =======================
+		new_substring_fraction = EvaluateFraction(substring)
+		substring = substring.replace(substring, new_substring_money)
 
-		# decimal
 
 		output_string = concatSubstring(substring, output_string)
 

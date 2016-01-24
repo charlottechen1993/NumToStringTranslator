@@ -20,7 +20,6 @@ def EvaluateMoney(substring):
 				ori_money += ' '
 				ori_money += reg_money[r3][2]
 
-			print ori_money
 			full_money = reg_money[r3][1]
 			money = full_money.replace(',', '')
 
@@ -43,9 +42,6 @@ def EvaluateMoney(substring):
 				new_substring += ' dollar'
 			else:
 				new_substring += ' dollars'
-
-			print ori_money + " : " + new_substring
-			print " "
 
 			substring = substring.replace(ori_money, new_substring)
 

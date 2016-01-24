@@ -88,7 +88,7 @@ def ConvertThousands(input_thou):
 	if int_single_hun_digit != 0:
 		# e.g. 1,001
 		if str(input_thou)[1] == '0' and str(input_thou)[2] == '0':
-			thousand_digit += ' and '
+			thousand_digit += ' '
 			thousand_digit += ConvertOnes(int_single_hun_digit)
 		# e.g 1,010
 		elif str(input_thou)[1] == '0':
