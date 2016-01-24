@@ -61,7 +61,7 @@ def EvaluateFraction(substring):
 				ori_frac += full_frac[0]
 				ori_frac += ' '
 			ori_frac += full_frac[1]
-			ori_frac += '\\\\/'
+			ori_frac += '\\/'
 			ori_frac += full_frac[2]
 
 			# print ori_frac
@@ -79,7 +79,7 @@ def EvaluateFraction(substring):
 			# Convert denominator and numerator
 			new_substring += ConvertFraction(numerator, denominator)
 
-			print ori_frac + " : " + new_substring
+			# print ori_frac + " : " + new_substring
 
 			# replace original fraction
 			substring = substring.replace(ori_frac, new_substring)

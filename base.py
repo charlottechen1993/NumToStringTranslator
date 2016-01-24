@@ -53,9 +53,9 @@ def ConvertHundreds(input_huns):
 	hundred_digit = ''
 
 	single_hundred_digit = str(input_huns)[0]
-	if len(str(input_huns)) == 3:
+	if int(input_huns[0]) != 0:
 		hundred_digit += list_ones[int(single_hundred_digit)]
-		hundred_digit += ' hundred'
+		hundred_digit += ' hundred '
 
 	single_tens_digit = str(input_huns)[1] + str(input_huns)[2]
 	int_single_tens_digit = int(single_tens_digit)
@@ -64,11 +64,11 @@ def ConvertHundreds(input_huns):
 	if int_single_tens_digit != 0:
 		# e.g. 101
 		if len(str(int_single_tens_digit))==1:
-			hundred_digit += ' and '
-			hundred_digit += ConvertOnes(int_single_tens_digit)
+			hundred_digit += 'and '
+			hundred_digit += ConvertOnes(single_tens_digit)
 		elif len(str(int_single_tens_digit))==2:
 			tens_digit = ConvertTens(single_tens_digit)
-			hundred_digit += ' '
+			# hundred_digit += ' '
 			hundred_digit += tens_digit
 
 	return hundred_digit
@@ -89,14 +89,14 @@ def ConvertThousands(input_thou):
 		# e.g. 1,001
 		if str(input_thou)[1] == '0' and str(input_thou)[2] == '0':
 			thousand_digit += ' '
-			thousand_digit += ConvertOnes(int_single_hun_digit)
+			thousand_digit += ConvertOnes(single_hun_digit)
 		# e.g 1,010
 		elif str(input_thou)[1] == '0':
 			thousand_digit += ' '
-			thousand_digit += ConvertTens(int_single_hun_digit)
+			thousand_digit += ConvertTens(single_hun_digit)
 		# e.g. 1,100
 		else: 
-			hundreds_digit = ConvertHundreds(int_single_hun_digit)
+			hundreds_digit = ConvertHundreds(single_hun_digit)
 			thousand_digit += ' '
 			thousand_digit += hundreds_digit
 
@@ -107,29 +107,27 @@ def ConvertTenThousands(input_ten_thou):
 	tenthousand_digit = ''
 
 	single_tenthou_digit = str(input_ten_thou)[0] + str(input_ten_thou)[1]
-	tenthousand_digit += ConvertTens(int(single_tenthou_digit))
+	tenthousand_digit += ConvertTens(single_tenthou_digit)
+	tenthousand_digit += ' thousand'
 
 	single_thou_digit = str(input_ten_thou)[2] + str(input_ten_thou)[3] + str(input_ten_thou)[4]
 	int_single_thou_digit = int(single_thou_digit)
-	
+
 	if int_single_thou_digit != 0:
 		# e.g. 10,001
 		if len(str(int_single_thou_digit)) == 1:
 			tenthousand_digit += ' and '
-			tenthousand_digit += ConvertOnes(int_single_thou_digit)
+			tenthousand_digit += ConvertOnes(single_thou_digit)
 		# e.g. 10,010
 		elif len(str(int_single_thou_digit)) == 2:
 			tenthousand_digit += ' '
-			tenthousand_digit += ConvertTens(int_single_thou_digit)
+			tenthousand_digit += ConvertTens(single_thou_digit)
 		# e.g. 10,100
 		else:
-			thousands_digit = ConvertHundreds(str(single_thou_digit))
+			thousands_digit = ConvertHundreds(single_thou_digit)
 			if single_thou_digit !=0:
-				tenthousand_digit += ' thousand'
 				tenthousand_digit += ' '
 				tenthousand_digit += thousands_digit
-	else:
-		tenthousand_digit += ' thousand'
 	return tenthousand_digit
 
 # returns the string expression of numbers from 100,000-999,999
@@ -137,7 +135,8 @@ def ConvertHundredThousands(input_hun_thou):
 	hunthousand_digit = ''
 
 	single_hunthou_digit = str(input_hun_thou)[0] + str(input_hun_thou)[1] + str(input_hun_thou)[2]
-	hunthousand_digit += ConvertHundreds(int(single_hunthou_digit))
+	hunthousand_digit += ConvertHundreds(single_hunthou_digit)
+	hunthousand_digit += ' thousand'
 
 	single_thou_digit = str(input_hun_thou)[3] + str(input_hun_thou)[4] + str(input_hun_thou)[5]
 	int_single_thou_digit = int(single_thou_digit)
@@ -145,21 +144,73 @@ def ConvertHundredThousands(input_hun_thou):
 		# e.g. 100,001
 		if len(str(int_single_thou_digit)) == 1:
 			hunthousand_digit += ' and '
-			hunthousand_digit += ConvertOnes(int_single_thou_digit)
+			hunthousand_digit += ConvertOnes(single_thou_digit)
 		# e.g. 100,010
 		elif len(str(int_single_thou_digit)) == 2:
 			hunthousand_digit += ' '
-			hunthousand_digit += ConvertTens(int_single_thou_digit)
+			hunthousand_digit += ConvertTens(single_thou_digit)
 		# e.g 100,100
 		else:
-			thousands_digit = ConvertHundreds(str(single_thou_digit))
+			thousands_digit = ConvertHundreds(single_thou_digit)
 			if single_thou_digit !=0:
-				hunthousand_digit += ' thousand'
 				hunthousand_digit += ' '
 				hunthousand_digit += thousands_digit
-	else:
-		hunthousand_digit += ' thousand'
 	return hunthousand_digit
+
+# [1,000,000-9,999,999]
+def ConvertMillion(input_million):
+	million_digit = ''
+	hunthousand_digit = ''
+
+	single_million_digit = str(input_million)[0]
+	million_digit += list_ones[int(single_million_digit)]
+	million_digit += ' million'
+
+	single_hunthou_digit =  str(input_million)[1] + str(input_million)[2] + str(input_million)[3] + str(input_million)[4] + str(input_million)[5] + str(input_million)[6]
+	int_single_hunthou_digit = int(single_hunthou_digit)
+
+	# e.g if NOT 1,000,000
+	if int_single_hunthou_digit != 0:
+		million_digit += ' '
+		million_digit += ConvertHundredThousands(single_hunthou_digit)
+
+	return million_digit
+
+# [10,000,000-99,999,999]
+def ConvertTenMillion(input_tenmillion):
+	tenmillion_digit = ''
+
+	single_tenmillion_digit = str(input_tenmillion)[0] + str(input_tenmillion)[1]
+	tenmillion_digit += ConvertTens(single_tenmillion_digit)
+	tenmillion_digit += ' million'
+
+	single_hunthou_digit =  str(input_tenmillion)[2] + str(input_tenmillion)[3] + str(input_tenmillion)[4] + str(input_tenmillion)[5] + str(input_tenmillion)[6] + str(input_tenmillion)[7]
+	int_single_hunthou_digit = int(single_hunthou_digit)
+
+	# e.g if NOT 10,000,000
+	if int_single_hunthou_digit != 0:
+		tenmillion_digit += ' '
+		tenmillion_digit += ConvertHundredThousands(single_hunthou_digit)
+
+	return tenmillion_digit
+
+# # [100,000,000-999,999,999]
+def ConvertHunMillion(input_hunmillion):
+	hunmillion_digit = ''
+
+	single_hunmillion_digit = str(input_hunmillion)[0] + str(input_hunmillion)[1] + str(input_hunmillion)[2]
+	hunmillion_digit += ConvertHundreds(single_hunmillion_digit)
+	hunmillion_digit += ' million'
+
+	single_hunthou_digit =  str(input_hunmillion)[3] + str(input_hunmillion)[4] + str(input_hunmillion)[5] + str(input_hunmillion)[6] + str(input_hunmillion)[7] + str(input_hunmillion)[8]
+	int_single_hunthou_digit = int(single_hunthou_digit)
+
+	# e.g if NOT 10,000,000
+	if int_single_hunthou_digit != 0:
+		hunmillion_digit += ' '
+		hunmillion_digit += ConvertHundredThousands(single_hunthou_digit)
+
+	return hunmillion_digit
 
 def ConvertFullNumber(input_int):
 	eng_full = ''
@@ -182,6 +233,15 @@ def ConvertFullNumber(input_int):
 	# [100,000-999,999]
 	elif len(str(input_int))==6:
 		eng_full = ConvertHundredThousands(input_int)
+	# [1,000,000-9,999,999]
+	elif len(str(input_int))==7:
+		eng_full = ConvertMillion(input_int)
+	# [10,000,000-99,999,999]
+	elif len(str(input_int))==8:
+		eng_full = ConvertTenMillion(input_int)
+	# # [100,000,000-999,999,999]
+	elif len(str(input_int))==9:
+		eng_full = ConvertHunMillion(input_int)
 
 	return eng_full
 
@@ -202,4 +262,29 @@ def ConvertDecimal(input_dec):
 		eng_decimal += ConvertOnes(decimal[i])
 
 	return eng_decimal
+
+def EvaluateOthersFull(substring):
+	new_substring = ''
+	reg_money = re.findall(r'(\d+(?:\,\d{3})?(?!\.))', substring)
+
+def EvaluateOthersDecimal(substring):
+	# .4 and 1,000.2332 and 1000 and 2.34
+	reg_dec = re.findall(r'(\d+(?:\,\d{3})?(?:\.\d+))', substring)
+
+	if reg_dec:
+		for r5 in range(0, len(reg_dec)):
+			new_substring = ''
+			ori_dec = reg_dec[r5]
+
+			decimal = reg_dec[r5].replace(',', '')
+
+			new_substring += ConvertDecimal(decimal)
+
+			substring = substring.replace(ori_dec, new_substring)
+
+	return substring
+
+
+
+
 

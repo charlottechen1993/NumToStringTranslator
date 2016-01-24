@@ -3,7 +3,7 @@ from base import *
 
 def EvaluateMoney(substring):
 	# $ 1,000 billion; $ 3.5; $ 1,660
-	reg_money = re.findall(r'([$])\s(\d+(?:\,\d{3})?(?:\.\d+)?)\s?(?:(million|billion|trillion)?)', substring, re.IGNORECASE)
+	reg_money = re.findall(r'([$])\s(\d+(?:(?:\,\d{3})+)?(?:\.\d+)?)\s?(?:(million|billion|trillion)?)', substring, re.IGNORECASE)
 
 	if reg_money:
 		for r3 in range(0, len(reg_money)):
@@ -43,6 +43,7 @@ def EvaluateMoney(substring):
 			else:
 				new_substring += ' dollars'
 
+			print ori_money + ' : ' + new_substring
 			substring = substring.replace(ori_money, new_substring)
 
 	return substring

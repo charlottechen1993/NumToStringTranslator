@@ -135,14 +135,15 @@ def ConvertYearsWithS(input_year):
 
 # Translate any date format numbers in substring
 def EvaluateDate(substring):
-	new_substring = ''
-
+	
 	# =========================
 	# Format 1: Year on its own
 	# =========================
 	reg_year = re.findall(r'(?<=\s)\d{4}(?!s)(?!.)', substring)
 	if reg_year:
 		for r1 in range(0, len(reg_year)):
+			new_substring = ''
+
 			full_year = re.search(r'(\d+)', reg_year[int(r1)])
 			new_substring = ConvertYears(full_year.group(1))
 
@@ -155,6 +156,8 @@ def EvaluateDate(substring):
 	reg_year_s = re.findall(r'(?<=\s)\d{4}(?=s)', substring)
 	if reg_year_s:
 		for r1_5 in range(0, len(reg_year_s)):
+			new_substring = ''
+
 			full_year_s = re.search(r'(\d+)', reg_year_s[int(r1_5)])
 			new_substring = ConvertYearsWithS(full_year_s.group(1))
 
@@ -167,6 +170,8 @@ def EvaluateDate(substring):
 	short_date = re.findall(r'(?:Jan|Feb|Mar|April|May|June|Jun|July|Jul|Aug|Sept|Sep|Oct|Nov|Dec|Janpercentuary|February|March|August|September|October|November|December)\.*\s+\d{1,2}', substring, re.IGNORECASE)
 	if short_date:
 		for r2 in range(0, len(short_date)):
+			new_substring = ''
+
 			date = re.search(r'(\d+)', short_date[int(r2)])
 			if len(str(date.group(1)))==1:
 				new_substring = ConvertOnes_th(date.group(1))

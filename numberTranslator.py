@@ -8,16 +8,8 @@ from trans_fraction import *
 output_string = ''
 
 # with open(user_input, 'r') as f:
-with open('more.txt','r') as f:
+with open('my_test.txt','r') as f:
 	text = f.read()
-
-list_thousand = ['', 'one thousand', 'two thousand', 'three thousand', 'four thousand', 'five thousand', 'six-thousand', 'seven-thousand', 'eigth-thousand', 'nine-thousand']
-list_hundred = ['', 'one hundred', 'two hundred', 'three hundred', 'four hundred', 'five hundred', 'six-hundred', 'seven-hundred', 'eigth-hundred', 'nine-hundred']
-list_full_tenth = ['', 'ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
-list_full_tenth_s = ['s', '-tens', '-twenties', '-thirties', '-forties', '-fifties', '-sixties', '-seventies', '-eighties', '-nineties']
-list_tenth = ['', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen']
-list_ones = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
-list_th = ['', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth']
 
 # split entire text into substring by ',', '.', and '\n'
 master_list = (re.split(r'(\s+,\s+|\s+\n|\s+\.\s+)',text))
@@ -66,8 +58,17 @@ for substring in master_list:
 		# ====== Fraction =======
 		# =======================
 		new_substring_fraction = EvaluateFraction(substring)
-		substring = substring.replace(substring, new_substring_money)
+		substring = substring.replace(substring, new_substring_fraction)
 
+		# =======================
+		# ======= Others ========
+		# =======================
+		# new_substring_others2 = EvaluateOthersDecimal(substring)
+		# substring = substring.replace(substring, new_substring_others2)
+
+		# new_substring_others = EvaluateOthersFull(substring)
+		# substring = substring.replace(substring, new_substring_others)
+		
 
 		output_string = concatSubstring(substring, output_string)
 
