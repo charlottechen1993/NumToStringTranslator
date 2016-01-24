@@ -1,6 +1,7 @@
 import sys
 import re
 from trans_date import * 
+from trans_percent import *
 
 # user_input = raw_input("Please specify a file: ") 
 output_string = ''
@@ -41,15 +42,19 @@ for substring in master_list:
 	if allStrings == False:
 		output_string = concatSubstring(substring, output_string)
 
-	# if substring contains number, evaluate
+	# if substring contains number, find all occurences of number, translate, and print
 	else:
-		# find all occruences of data formatted numbers in the substring and translate
-		# return substring with date converted
+		# ======================
+		# ======== Date ========
+		# ======================
 		new_substring_date = EvaluateDate(substring)
 		substring = substring.replace(substring, new_substring_date)
 		output_string = concatSubstring(substring, output_string)
 
-		# percentage
+		# =========================
+		# ======== Percent ========
+		# =========================
+		new_substring_percent = EvaluateDate(substring)
 
 		# money
 
