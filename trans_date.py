@@ -138,7 +138,7 @@ def EvaluateDate(substring):
 	# =================
 	# Format 1: 1989-99
 	# =================
-	reg_year_partial = re.findall(r'(\d{4})(?=-(\d{2}))', substring)
+	reg_year_partial = re.findall(r'(\d{4})(?=-(\d{2,4}))', substring)
 	if reg_year_partial:
 		for r7 in range(0, len(reg_year_partial)):
 			new_substring = ''
@@ -147,7 +147,12 @@ def EvaluateDate(substring):
 			full_year = reg_year_partial[r7][0]
 			# grab partial year
 			part_year = reg_year_partial[r7][1]
-			full_year2 = full_year[0] + full_year[1] + part_year
+			# e.g. 1989-99
+			if len(part_year)== 2:
+				full_year2 = full_year[0] + full_year[1] + part_year
+			# e.g. 1989-1999
+			elif len(part_year)==4:
+				full_year2 = part_year
 
 			ori_year += full_year
 			ori_year += '-'

@@ -7,7 +7,7 @@ def ConvertFraction(numerator, denominator):
 	new_substring = ''
 
 	# X/2 - 1/10
-	if int(denominator) <= 10 and int(denominator) != 1:
+	if int(denominator) <= 10 and int(denominator) != 1 and int(denominator) != 0:
 		# e.g. 1/2 1/3 1/4
 		if int(numerator) == 1 :
 			if int(denominator) == 2:

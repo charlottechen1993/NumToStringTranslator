@@ -4,18 +4,20 @@ from trans_date import *
 from trans_money import *
 from trans_fraction import *
 
-# user_input = raw_input("Please specify a file: ") 
+print '\n'
+user_input = raw_input("Please specify a file: ") 
 output_string = ''
 
-# with open(user_input, 'r') as f:
-with open('more.txt','r') as f:
+with open(user_input, 'r') as f:
 	text = f.read()
 
 # split entire text into substring by ',', '.', and '\n'
 master_list = (re.split(r'(\s+,\s+|\s+\n|\s+\.\s+)',text))
 
-print master_list 
 print '\n'
+print "===================="
+print "====== RESULT ======"
+print "===================="
 
 def concatSubstring(input_str, output_string):
 	for print_char in input_str:
@@ -45,31 +47,46 @@ for substring in master_list:
 		# ======================
 		# ======== Date ========
 		# ======================
-		new_substring_date = EvaluateDate(substring)
-		substring = substring.replace(substring, new_substring_date)
+		try:
+			new_substring_date = EvaluateDate(substring)
+			substring = substring.replace(substring, new_substring_date)
+		except:
+			continue
 
 		# =======================
 		# ======== Money ========
 		# =======================
-		new_substring_money = EvaluateMoney(substring)
-		substring = substring.replace(substring, new_substring_money)
+		try:
+			new_substring_money = EvaluateMoney(substring)
+			substring = substring.replace(substring, new_substring_money)
+		except:
+			continue
 
 		# =======================
 		# ====== Fraction =======
 		# =======================
-		new_substring_fraction = EvaluateFraction(substring)
-		substring = substring.replace(substring, new_substring_fraction)
+		try:
+			new_substring_fraction = EvaluateFraction(substring)
+			substring = substring.replace(substring, new_substring_fraction)
+		except:
+			continue
 
 		# =======================
 		# ======= Others ========
 		# =======================
-		new_substring_others2 = EvaluateOthersDecimal(substring)
-		substring = substring.replace(substring, new_substring_others2)
+		try:
+			new_substring_others2 = EvaluateOthersDecimal(substring)
+			substring = substring.replace(substring, new_substring_others2)
+		except:
+			continue
 
-		new_substring_others = EvaluateOthersFull(substring)
-		substring = substring.replace(substring, new_substring_others)
-		
+		try:
+			new_substring_others = EvaluateOthersFull(substring)
+			substring = substring.replace(substring, new_substring_others)
+		except:
+			continue
 
 		output_string = concatSubstring(substring, output_string)
 
 print output_string
+print "\n"
