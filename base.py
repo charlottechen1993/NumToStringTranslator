@@ -248,10 +248,9 @@ def ConvertFullNumber(input_int):
 
 def ConvertDecimal(input_dec):
 	eng_decimal = ''
-
 	integer = ''
 	decimal = ''
-	# split number into interger and decimal parts
+	# split number into integer and decimal parts
 	split_dec = str(input_dec).split('.')
 	integer = split_dec[0]
 	decimal = split_dec[1]
@@ -264,21 +263,34 @@ def ConvertDecimal(input_dec):
 	return eng_decimal
 
 def EvaluateOthersFull(substring):
-	new_substring = ''
-	reg_money = re.findall(r'(\d+(?:\,\d{3})?(?!\.))', substring)
+	reg_int = re.findall(r'(\d+(?:(?:\,\d{3})+)?)', substring)
+
+	if reg_int:
+		for r6 in range(0, len(reg_int)):
+			new_substring = ''
+			ori_int = reg_int[r6]
+			integer = reg_int[r6].replace(',', '')
+
+			new_substring += ConvertFullNumber(integer)
+
+			print ori_int + " : " + new_substring
+
+			substring = substring.replace(ori_int, new_substring)
+
+	return substring
 
 def EvaluateOthersDecimal(substring):
 	# .4 and 1,000.2332 and 1000 and 2.34
-	reg_dec = re.findall(r'(\d+(?:\,\d{3})?(?:\.\d+))', substring)
-
+	reg_dec = re.findall(r'(\d+(?:(?:\,\d{3})+)?(?:\.\d+))', substring)
 	if reg_dec:
 		for r5 in range(0, len(reg_dec)):
 			new_substring = ''
 			ori_dec = reg_dec[r5]
-
 			decimal = reg_dec[r5].replace(',', '')
 
 			new_substring += ConvertDecimal(decimal)
+
+			# print ori_dec + " : " + new_substring
 
 			substring = substring.replace(ori_dec, new_substring)
 

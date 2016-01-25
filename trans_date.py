@@ -139,7 +139,7 @@ def EvaluateDate(substring):
 	# =========================
 	# Format 1: Year on its own
 	# =========================
-	reg_year = re.findall(r'(?<=\s)\d{4}(?!s)(?!.)', substring)
+	reg_year = re.findall(r'\d{4}(?!s)', substring)
 	if reg_year:
 		for r1 in range(0, len(reg_year)):
 			new_substring = ''
@@ -148,12 +148,14 @@ def EvaluateDate(substring):
 			new_substring = ConvertYears(full_year.group(1))
 
 			# print full_year.group(1) + ' : ' + new_substring
-			substring = substring.replace(full_year.group(1), new_substring)
+
+			if len(new_substring) != 0:
+				substring = substring.replace(full_year.group(1), new_substring)
 
 	# =========================
 	# Format 1.5: Year with 's'
 	# =========================
-	reg_year_s = re.findall(r'(?<=\s)\d{4}(?=s)', substring)
+	reg_year_s = re.findall(r'\d{4}(?=s)', substring)
 	if reg_year_s:
 		for r1_5 in range(0, len(reg_year_s)):
 			new_substring = ''
@@ -162,12 +164,13 @@ def EvaluateDate(substring):
 			new_substring = ConvertYearsWithS(full_year_s.group(1))
 
 			# print full_year_s.group(1) + ' : ' + new_substring
-			substring = substring.replace(full_year_s.group(1), new_substring)
+			if len(new_substring) != 0:
+				substring = substring.replace(full_year_s.group(1), new_substring)
 
 	# ===============================
 	# Format 2: Oct. 26 or October 26
 	# ===============================
-	short_date = re.findall(r'(?:Jan|Feb|Mar|April|May|June|Jun|July|Jul|Aug|Sept|Sep|Oct|Nov|Dec|Janpercentuary|February|March|August|September|October|November|December)\.*\s+\d{1,2}', substring, re.IGNORECASE)
+	short_date = re.findall(r'(?:Jan|Feb|Mar|April|May|June|Jun|July|Jul|Aug|Sept|Sep|Oct|Nov|Dec|January|February|March|August|September|October|November|December)\.*\s+\d{1,2}', substring, re.IGNORECASE)
 	if short_date:
 		for r2 in range(0, len(short_date)):
 			new_substring = ''
@@ -179,7 +182,9 @@ def EvaluateDate(substring):
 				new_substring = ConvertTenth(date.group(1))
 
 			# print date.group(1) + ' : ' + new_substring
-			substring = substring.replace(date.group(1), new_substring)
+
+			if len(new_substring) != 0:
+				substring = substring.replace(date.group(1), new_substring)
 
 	return substring
 

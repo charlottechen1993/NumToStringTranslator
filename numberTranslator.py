@@ -8,7 +8,7 @@ from trans_fraction import *
 output_string = ''
 
 # with open(user_input, 'r') as f:
-with open('my_test.txt','r') as f:
+with open('more.txt','r') as f:
 	text = f.read()
 
 # split entire text into substring by ',', '.', and '\n'
@@ -63,11 +63,11 @@ for substring in master_list:
 		# =======================
 		# ======= Others ========
 		# =======================
-		# new_substring_others2 = EvaluateOthersDecimal(substring)
-		# substring = substring.replace(substring, new_substring_others2)
+		new_substring_others2 = EvaluateOthersDecimal(substring)
+		substring = substring.replace(substring, new_substring_others2)
 
-		# new_substring_others = EvaluateOthersFull(substring)
-		# substring = substring.replace(substring, new_substring_others)
+		new_substring_others = EvaluateOthersFull(substring)
+		substring = substring.replace(substring, new_substring_others)
 		
 
 		output_string = concatSubstring(substring, output_string)

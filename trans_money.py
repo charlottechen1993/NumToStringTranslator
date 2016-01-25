@@ -43,7 +43,7 @@ def EvaluateMoney(substring):
 			else:
 				new_substring += ' dollars'
 
-			print ori_money + ' : ' + new_substring
+			# print ori_money + ' : ' + new_substring
 			substring = substring.replace(ori_money, new_substring)
 
 	return substring
