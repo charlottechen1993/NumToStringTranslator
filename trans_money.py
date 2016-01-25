@@ -44,7 +44,9 @@ def EvaluateMoney(substring):
 				new_substring += ' dollars'
 
 			# print ori_money + ' : ' + new_substring
-			substring = substring.replace(ori_money, new_substring)
+			
+			if len(new_substring) != 0:
+				substring = substring.replace(ori_money, new_substring)
 
 	return substring
 

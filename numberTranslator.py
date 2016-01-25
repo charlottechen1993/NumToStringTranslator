@@ -72,4 +72,4 @@ for substring in master_list:
 
 		output_string = concatSubstring(substring, output_string)
 
-# print output_string
+print output_string

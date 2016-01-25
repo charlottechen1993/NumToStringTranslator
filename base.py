@@ -273,7 +273,7 @@ def EvaluateOthersFull(substring):
 
 			new_substring += ConvertFullNumber(integer)
 
-			print ori_int + " : " + new_substring
+			# print ori_int + " : " + new_substring
 
 			substring = substring.replace(ori_int, new_substring)
 

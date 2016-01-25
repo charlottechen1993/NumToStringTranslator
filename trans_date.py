@@ -135,9 +135,35 @@ def ConvertYearsWithS(input_year):
 
 # Translate any date format numbers in substring
 def EvaluateDate(substring):
-	
+	# =================
+	# Format 1: 1989-99
+	# =================
+	reg_year_partial = re.findall(r'(\d{4})(?=-(\d{2}))', substring)
+	if reg_year_partial:
+		for r7 in range(0, len(reg_year_partial)):
+			new_substring = ''
+			ori_year = ''
+			# grab full year
+			full_year = reg_year_partial[r7][0]
+			# grab partial year
+			part_year = reg_year_partial[r7][1]
+			full_year2 = full_year[0] + full_year[1] + part_year
+
+			ori_year += full_year
+			ori_year += '-'
+			ori_year += part_year
+
+			new_substring += ConvertYears(full_year)
+			new_substring += ' to '
+			new_substring += ConvertYears(full_year2)
+
+			# print ori_year + ' : ' + new_substring
+
+			if len(new_substring) != 0:
+				substring = substring.replace(ori_year, new_substring)
+
 	# =========================
-	# Format 1: Year on its own
+	# Format 2: Year on its own
 	# =========================
 	reg_year = re.findall(r'\d{4}(?!s)', substring)
 	if reg_year:
@@ -153,7 +179,7 @@ def EvaluateDate(substring):
 				substring = substring.replace(full_year.group(1), new_substring)
 
 	# =========================
-	# Format 1.5: Year with 's'
+	# Format 2.5: Year with 's'
 	# =========================
 	reg_year_s = re.findall(r'\d{4}(?=s)', substring)
 	if reg_year_s:
@@ -168,7 +194,7 @@ def EvaluateDate(substring):
 				substring = substring.replace(full_year_s.group(1), new_substring)
 
 	# ===============================
-	# Format 2: Oct. 26 or October 26
+	# Format 3: Oct. 26 or October 26
 	# ===============================
 	short_date = re.findall(r'(?:Jan|Feb|Mar|April|May|June|Jun|July|Jul|Aug|Sept|Sep|Oct|Nov|Dec|January|February|March|August|September|October|November|December)\.*\s+\d{1,2}', substring, re.IGNORECASE)
 	if short_date:
@@ -185,6 +211,7 @@ def EvaluateDate(substring):
 
 			if len(new_substring) != 0:
 				substring = substring.replace(date.group(1), new_substring)
+
 
 	return substring
 
